@@ -27,6 +27,7 @@ namespace ReservationApi.Application.Extensions
             );
             services.AddValidatorsFromAssemblyContaining<CreateApartmentCommandValidator>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+
         }
     }
 }

@@ -21,6 +21,7 @@ namespace ReservationApi.Infrastructure.Extensions
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IApartmentRepository,ApartmentRepository>();
             services.AddScoped<ReservationApiSeeder>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
     }
 }

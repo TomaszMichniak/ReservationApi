@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ReservationApi.Application.ApartmentCQRS.Command.Create;
 using ReservationApi.Application.ApartmentCQRS.Command.Delete;
@@ -12,6 +13,7 @@ using ReservationApi.Domain.Entities;
 
 namespace ReservationApi.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class ApartmentController : ControllerBase
@@ -30,13 +32,14 @@ namespace ReservationApi.Controllers
         }
 
         [HttpGet]
-        [Route("{Id}")]
-        public async Task<IActionResult> GetById([FromRoute] Guid Id)
+        [Route("{id}")]
+        public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
-            var result = await _mediator.Send(new GetByIdApartmentQuery(Id));
+            var result = await _mediator.Send(new GetByIdApartmentQuery(id));
             return Ok(result);
         }
         [HttpPost]
+        [Authorize(Roles ="admin")]
         public async Task<IActionResult> Create([FromBody] CreateApartmentCommand command)
         {
 
@@ -51,6 +54,7 @@ namespace ReservationApi.Controllers
             return Ok(data);
         }
         [HttpPut]
+        [Authorize(Roles ="admin")]
         public async Task<IActionResult> Edit([FromBody] EditApartmentCommand command)
         {
             EditApartmentCommandValidator _validator = new EditApartmentCommandValidator();
@@ -65,6 +69,7 @@ namespace ReservationApi.Controllers
         }
         [HttpDelete]
         [Route("{id}")]
+        [Authorize(Roles ="admin")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             await _mediator.Send(new DeleteApartmentCommand(id));
