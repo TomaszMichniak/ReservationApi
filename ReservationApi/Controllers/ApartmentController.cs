@@ -3,11 +3,11 @@ using FluentValidation.Results;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ReservationApi.Application.ApartmentCQRS.Command.Create;
-using ReservationApi.Application.ApartmentCQRS.Command.Delete;
-using ReservationApi.Application.ApartmentCQRS.Command.Edit;
-using ReservationApi.Application.ApartmentCQRS.Query.GetAll;
-using ReservationApi.Application.ApartmentCQRS.Query.GetById;
+using ReservationApi.Application.CQRS.Apartment.Command.Create;
+using ReservationApi.Application.CQRS.Apartment.Command.Delete;
+using ReservationApi.Application.CQRS.Apartment.Command.Edit;
+using ReservationApi.Application.CQRS.Apartment.Query.GetAll;
+using ReservationApi.Application.CQRS.Apartment.Query.GetById;
 using ReservationApi.Application.Pagination;
 using ReservationApi.Domain.Entities;
 

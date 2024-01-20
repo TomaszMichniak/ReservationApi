@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ReservationApi.Application.AuthenticationCQRS;
-using ReservationApi.Application.AuthenticationCQRS.Command.Login;
-using ReservationApi.Application.AuthenticationCQRS.Command.Register;
+using ReservationApi.Application.CQRS.AuthenticationCQRS;
+using ReservationApi.Application.CQRS.AuthenticationCQRS.Command.Login;
+using ReservationApi.Application.CQRS.AuthenticationCQRS.Command.Register;
 
 namespace ReservationApi.Controllers
 {

@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ReservationApi.Application.ApartmentCQRS;
 using ReservationApi.Domain.Entities;
 using ReservationApi.Domain.Interfaces;
 using ReservationApi.Infrastructure.Database;

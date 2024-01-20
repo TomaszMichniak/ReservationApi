@@ -2,7 +2,7 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using ReservationApi.Application.ApartmentCQRS.Command.Create;
+using ReservationApi.Application.CQRS.Apartment.Command.Create;
 using ReservationApi.Application.Mapping;
 using ReservationApi.Domain.Entities;
 using System;
