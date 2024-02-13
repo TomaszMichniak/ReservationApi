@@ -54,7 +54,7 @@ namespace ReservationApi.Controllers
             return Ok(data);
         }
         [HttpPut]
-        [Authorize(Roles ="admin")]
+       //[Authorize(Roles ="admin")]
         public async Task<IActionResult> Edit([FromBody] EditApartmentCommand command)
         {
             EditApartmentCommandValidator _validator = new EditApartmentCommandValidator();

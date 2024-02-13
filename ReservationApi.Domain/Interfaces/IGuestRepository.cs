@@ -9,5 +9,6 @@ namespace ReservationApi.Domain.Interfaces
 {
     public interface IGuestRepository : IGenericRepository<Guest>
     {
+        public Task<bool> isExist(Guid id);
     }
 }

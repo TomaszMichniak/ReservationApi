@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace ReservationApi.Infrastructure.Repositories
 {
-    public class GuestRepository : GenericRepository<Guest>, IGuestRepository
+    public class ReservationRepository : GenericRepository<Reservation>, IReservationRepository
     {
-        public GuestRepository(ReservationApiDbContext dbContext) : base(dbContext)
+        public ReservationRepository(ReservationApiDbContext dbContext) : base(dbContext)
         {
         }
         public async Task<bool> isExist(Guid id)
         {
-            return await _dbContext.Guests.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id) != null;
+            return await _dbContext.Reservations.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id) != null;
         }
     }
 }

@@ -9,6 +9,7 @@ namespace ReservationApi.Application.CQRS.Guest
 {
     public class GuestDto
     {
+        public Guid Id { get; set; } 
         public string Email { get; set; } = default!;
         public string FirstName { get; set; } = default!;
         public string LastName { get; set; } = default!;

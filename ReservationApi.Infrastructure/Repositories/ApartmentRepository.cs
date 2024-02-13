@@ -15,9 +15,9 @@ namespace ReservationApi.Infrastructure.Repositories
         public ApartmentRepository(ReservationApiDbContext dbContext) : base(dbContext)
         {
         }
-        private async Task<bool> isExist(Guid id)
+        public async Task<bool> isExist(Guid id)
         {
-           return await _dbContext.Apartaments.AsNoTracking().FirstOrDefaultAsync(x=>x.Id==id)!=null;
+            return await _dbContext.Apartaments.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id) != null;
         }
         public async Task<Apartment?> UpdateApartment(Apartment apartment)
         {
@@ -31,6 +31,25 @@ namespace ReservationApi.Infrastructure.Repositories
             {
                 return null;
             }
+        }
+        public decimal GetPrice(Guid id)
+        {
+            var apartment = _dbContext.Apartaments.Find(id);
+            if (apartment != null)
+            {
+                return apartment.RatePerNight;
+            }
+            return -1;
+        }
+        public int GetMaxGuest(Guid id)
+        {
+
+            var apartment = _dbContext.Apartaments.Find(id);
+            if (apartment != null)
+            {
+                return apartment.MaxGuests;
+            }
+            return -1;
         }
     }
 }

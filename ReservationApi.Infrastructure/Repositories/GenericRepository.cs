@@ -63,5 +63,7 @@ namespace ReservationApi.Infrastructure.Repositories
         {
             return SpecificationEvaluator<T>.GetQuery(_dbContext.Set<T>().AsQueryable(), spec);
         }
+        
+
     }
 }

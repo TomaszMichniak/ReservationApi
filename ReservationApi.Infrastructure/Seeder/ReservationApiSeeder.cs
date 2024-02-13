@@ -36,6 +36,7 @@ namespace ReservationApi.Infrastructure.Seeder
                 await _dbContext.SaveChangesAsync();
             }
         }
+
         private IEnumerable<Apartment> GetApartments()
         {
             var apartments=new List<Apartment>()

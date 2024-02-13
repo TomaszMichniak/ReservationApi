@@ -23,6 +23,7 @@ namespace ReservationApi.Infrastructure.Extensions
             services.AddScoped<ReservationApiSeeder>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IGuestRepository, GuestRepository>();
+            services.AddScoped<IReservationRepository, ReservationRepository>();
         }
     }
 }
