@@ -10,21 +10,28 @@ using System.Threading.Tasks;
 
 namespace ReservationApi.Application.CQRS.Reservation.Command.Create
 {
-    public class CreateReservationCommandHander : IRequestHandler<CreateReservationCommand, ReservationDto>
+    public class CreateReservationCommandHander : IRequestHandler<CreateReservationCommand, ReservationDto?>
     {
         private readonly IMapper _mapper;
         private readonly IReservationRepository _reservationRepository;
         private readonly IApartmentRepository _apartmentRepository;
+        private readonly IGuestRepository _guestRepository;
 
-        public CreateReservationCommandHander(IMapper mapper, IReservationRepository reservationRepository, IApartmentRepository apartmentRepository)
+        public CreateReservationCommandHander(IMapper mapper, IReservationRepository reservationRepository, IApartmentRepository apartmentRepository, IGuestRepository guestRepository)
         {
             _mapper = mapper;
             _reservationRepository = reservationRepository;
             _apartmentRepository = apartmentRepository;
+            _guestRepository = guestRepository;
         }
 
-        public async Task<ReservationDto> Handle(CreateReservationCommand request, CancellationToken cancellationToken)
+        public async Task<ReservationDto?> Handle(CreateReservationCommand request, CancellationToken cancellationToken)
         {
+            if (!await _apartmentRepository.isExist(request.ApartmentId)
+                &&!await _guestRepository.isExist(request.GuestId))
+            {
+                return null;
+            }
             var reservation=_mapper.Map<Domain.Entities.Reservation>(request);
             if (reservation.TotalPrice==0)
             {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ReservationApi.Application.CQRS.Reservation.Command.Create
 {
-    public class CreateReservationCommand : IRequest<ReservationDto>
+    public class CreateReservationCommand : IRequest<ReservationDto?>
     {
         public DateTime CheckInDate { get; set; }
         public DateTime CheckOutDate { get; set; }

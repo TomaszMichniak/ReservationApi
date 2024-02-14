@@ -1,4 +1,5 @@
-﻿using FluentValidation.Results;
+﻿using FluentValidation;
+using FluentValidation.Results;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using ReservationApi.Application.CQRS.Apartment.Command.Create;
 using ReservationApi.Application.CQRS.Reservation.Command.Create;
 using ReservationApi.Application.CQRS.Reservation.Command.Delete;
+using ReservationApi.Application.CQRS.Reservation.Command.Edit;
 using ReservationApi.Application.CQRS.Reservation.Query.GetAll;
 using ReservationApi.Application.CQRS.Reservation.Query.GetById;
 using ReservationApi.Application.Pagination;
@@ -44,6 +46,19 @@ namespace ReservationApi.Controllers
         public async Task<IActionResult> Create([FromBody] CreateReservationCommand command)
         {
             CreateReservationCommandValidator _validator = new CreateReservationCommandValidator(_apartmentRepository);
+            ValidationResult result = await _validator.ValidateAsync(command);
+
+            if (!result.IsValid)
+                return BadRequest(command);
+            var data = await _mediator.Send(command);
+            if (data == null)
+                return BadRequest(command);
+            return Ok(data);
+        }
+        [HttpPut]
+        public async Task<IActionResult> Edit([FromBody] EditReservationCommand command)
+        {
+            EditReservationCommandValidator _validator = new EditReservationCommandValidator(_apartmentRepository);
             ValidationResult result = await _validator.ValidateAsync(command);
 
             if (!result.IsValid)

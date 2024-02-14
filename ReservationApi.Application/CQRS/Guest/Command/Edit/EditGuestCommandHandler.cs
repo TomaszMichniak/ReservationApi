@@ -22,11 +22,11 @@ namespace ReservationApi.Application.CQRS.Guest.Command.Edit
 
         public async Task<GuestDto?> Handle(EditGuestCommand request, CancellationToken cancellationToken)
         {
-            var guest = _mapper.Map<Domain.Entities.Guest>(request);
             if (!await _guestRepository.isExist(request.Id))
             {
                 return null;
             }
+            var guest = _mapper.Map<Domain.Entities.Guest>(request);
             var updatedGuest = await _guestRepository.UpdateAsync(guest);
             var guestDto=_mapper.Map<GuestDto>(updatedGuest);
             return guestDto;

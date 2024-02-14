@@ -5,6 +5,7 @@ using ReservationApi.Domain.Interfaces;
 using ReservationApi.Infrastructure.Database;
 using ReservationApi.Infrastructure.Repositories;
 using ReservationApi.Infrastructure.Seeder;
+using ReservationApi.Infrastructure.Specification;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace ReservationApi.Infrastructure.Extensions
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IGuestRepository, GuestRepository>();
             services.AddScoped<IReservationRepository, ReservationRepository>();
+            //services.AddScoped(typeof(ISpecification<>), typeof(Specification<>));
         }
     }
 }

@@ -8,6 +8,7 @@ using ReservationApi.Application.CQRS.Apartment.Command.Delete;
 using ReservationApi.Application.CQRS.Apartment.Command.Edit;
 using ReservationApi.Application.CQRS.Apartment.Query.GetAll;
 using ReservationApi.Application.CQRS.Apartment.Query.GetById;
+using ReservationApi.Application.CQRS.Apartment.Query.GetBySpecification;
 using ReservationApi.Application.Pagination;
 using ReservationApi.Domain.Entities;
 
@@ -28,6 +29,13 @@ namespace ReservationApi.Controllers
         public async Task<IActionResult> GetAll([FromQuery]PaginationDto pagination)
         {
             var result =await _mediator.Send(new GetAllApartmentQuery(pagination));
+            return Ok(result);
+        }
+        [HttpGet]
+        [Route("Search")]
+        public async Task<IActionResult> GetBySpecification([FromQuery]GetBySpecificationApartmentQuery query )
+        {
+            var result=await _mediator.Send(query);
             return Ok(result);
         }
 
