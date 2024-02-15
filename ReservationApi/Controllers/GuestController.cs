@@ -4,11 +4,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ReservationApi.Application.CQRS.Apartment.Query.GetAll;
+using ReservationApi.Application.CQRS.Apartment.Query.GetBySpecification;
 using ReservationApi.Application.CQRS.Guest.Command.Create;
 using ReservationApi.Application.CQRS.Guest.Command.Delete;
 using ReservationApi.Application.CQRS.Guest.Command.Edit;
 using ReservationApi.Application.CQRS.Guest.Query.GetAll;
 using ReservationApi.Application.CQRS.Guest.Query.GetById;
+using ReservationApi.Application.CQRS.Guest.Query.GetBySpecification;
 using ReservationApi.Application.Pagination;
 
 namespace ReservationApi.Controllers
@@ -33,6 +35,13 @@ namespace ReservationApi.Controllers
         public async Task<IActionResult> GetById([FromRoute] Guid Id)
         {
             var result = await _mediator.Send(new GetByIdGuestQuery(Id));
+            return Ok(result);
+        }
+        [HttpGet]
+        [Route("Search")]
+        public async Task<IActionResult> GetBySpecification([FromQuery] GetBySpecificationGuestQuery query)
+        {
+            var result = await _mediator.Send(query);
             return Ok(result);
         }
         [HttpPost]

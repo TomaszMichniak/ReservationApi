@@ -12,9 +12,9 @@ namespace ReservationApi.Domain.Specification
     {
         private readonly List<Expression<Func<T, bool>>> _criteria = new List<Expression<Func<T, bool>>>();
         private readonly List<Expression<Func<T, object>>> _includes = new List<Expression<Func<T, object>>>();
-       
+
         public Expression<Func<T, object>>? OrderByDescending { get; private set; }
-        public Expression<Func<T, object>>? OrderBy {get; private set; }
+        public Expression<Func<T, object>>? OrderBy { get; private set; }
 
 
         public List<Expression<Func<T, bool>>> Criteria => _criteria;
@@ -22,14 +22,21 @@ namespace ReservationApi.Domain.Specification
 
 
 
-        public void SetOrderBy(Expression<Func<T, object>> orderByExpression)
+        public void SetOrderBy(OrderBy orderBy, Expression<Func<T, object>> orderByExpression)
         {
-            OrderBy = orderByExpression;
+            switch (orderBy)
+            {
+                case Specification.OrderBy.Asc:
+                    OrderBy = orderByExpression;
+                    break;
+                case Specification.OrderBy.Desc:
+                    OrderByDescending = orderByExpression;
+                    break;
+                default:
+                    break;
+            }
         }
-        public void SetOrderByDescending(Expression<Func<T, object>> orderByDescExpression)
-        {
-            OrderByDescending = orderByDescExpression;
-        }
+
     }
 
 
