@@ -11,6 +11,7 @@ namespace ReservationApi.Application.CQRS.Guest.Query.GetBySpecification
 {
     public class GetBySpecificationGuestQuery: IRequest<PageResult<GuestDto>>
     {
+        public PaginationDto Pagination { get; set; } = new();
         public string? Email { get; set; } = default!;
         public string? FirstName { get; set; } = default!;
         public string? LastName { get; set; } = default!;

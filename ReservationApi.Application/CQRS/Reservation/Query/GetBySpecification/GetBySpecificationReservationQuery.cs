@@ -11,7 +11,7 @@ namespace ReservationApi.Application.CQRS.Reservation.Query.GetBySpecification
 {
     public class GetBySpecificationReservationQuery : IRequest<PageResult<ReservationDto>>
     {
-        //public PaginationDto Pagination { get; set; }
+        public PaginationDto Pagination { get; set; } = new();
         public DateTime? CheckInDate { get; set; }
         public DateTime? CheckOutDate { get; set; }
         public DateTime? ReservationDate { get; set; }

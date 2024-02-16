@@ -33,8 +33,7 @@ namespace ReservationApi.Application.CQRS.Apartment.Query.GetBySpecification
             AddOrderBy(request, specification);
             var apartment = await _apartmentRepository.FindBySpecification(specification);
             var apartmentDto = _mapper.Map<IEnumerable<ApartmentDto>>(apartment);
-            PaginationDto paginationDto= new PaginationDto();
-            var pagination = Paginator<ApartmentDto>.Create(apartmentDto,paginationDto);
+            var pagination = Paginator<ApartmentDto>.Create(apartmentDto,request.Pagination);
             return pagination;
         }
         private void AddOrderBy(GetBySpecificationApartmentQuery request, Specification<Domain.Entities.Apartment> specification)

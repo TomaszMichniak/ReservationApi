@@ -31,8 +31,7 @@ namespace ReservationApi.Application.CQRS.Reservation.Query.GetBySpecification
             AddOrderBy(request, specification);
             var reservation = await _reservationRepository.FindBySpecification(specification);
             var reservationDto = _mapper.Map<IEnumerable<ReservationDto>>(reservation);
-            PaginationDto paginationDto = new PaginationDto();
-            var pagination = Paginator<ReservationDto>.Create(reservationDto, paginationDto);
+            var pagination = Paginator<ReservationDto>.Create(reservationDto, request.Pagination);
             return pagination;
         }
         private void AddOrderBy(GetBySpecificationReservationQuery request, Specification<Domain.Entities.Reservation> specification)

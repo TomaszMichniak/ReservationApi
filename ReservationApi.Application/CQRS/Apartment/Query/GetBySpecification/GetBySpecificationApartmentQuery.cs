@@ -13,7 +13,7 @@ namespace ReservationApi.Application.CQRS.Apartment.Query.GetBySpecification
 {
     public class GetBySpecificationApartmentQuery : IRequest<PageResult<ApartmentDto>>
     {
-        //public PaginationDto Pagination { get; set; }
+        public PaginationDto Pagination { get; set; }=new ();
         public string? Name { get; set; }
         public string? Description { get; set; }
         public int? MaxGuests { get; set; }
