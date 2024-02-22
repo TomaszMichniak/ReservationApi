@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using ReservationApi.Application.CQRS.Apartment;
+using ReservationApi.Application.Exceptions;
 using ReservationApi.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,10 @@ namespace ReservationApi.Application.CQRS.Apartment.Query.GetById
         public async Task<ApartmentDto> Handle(GetByIdApartmentQuery request, CancellationToken cancellationToken)
         {
             var apartment = await _apartmentRepository.GetByIdAsync(request.Id);
+            if (apartment == null)
+            {
+                throw new NotFoundExceptions("Apartment not found");
+            }
             var apartmentDto = _mapper.Map<ApartmentDto>(apartment);
             return apartmentDto;
         }

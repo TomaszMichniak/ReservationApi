@@ -47,7 +47,7 @@ namespace ReservationApi.Controllers
             return Ok(result);
         }
         [HttpPost]
-        [Authorize(Roles ="admin")]
+       // [Authorize(Roles ="admin")]
         public async Task<IActionResult> Create([FromBody] CreateApartmentCommand command)
         {
 
@@ -71,13 +71,12 @@ namespace ReservationApi.Controllers
             if (!result.IsValid)
                 return BadRequest(command);
             var data = await _mediator.Send(command);
-            if (data == null)
-                return BadRequest(command);
+      
             return Ok(data);
         }
         [HttpDelete]
         [Route("{id}")]
-        [Authorize(Roles ="admin")]
+       // [Authorize(Roles ="admin")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             await _mediator.Send(new DeleteApartmentCommand(id));

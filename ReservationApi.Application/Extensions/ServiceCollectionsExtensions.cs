@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using ReservationApi.Application.CQRS.Apartment.Command.Create;
 using ReservationApi.Application.Mapping;
+using ReservationApi.Application.Middleware;
 using ReservationApi.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,7 @@ namespace ReservationApi.Application.Extensions
             );
             services.AddValidatorsFromAssemblyContaining<CreateApartmentCommandValidator>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+            services.AddScoped<ErrorHandlingMiddlawere>();
         }
     }
 }

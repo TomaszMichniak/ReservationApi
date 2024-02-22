@@ -9,7 +9,6 @@ namespace ReservationApi.Domain.Interfaces
 {
     public interface IApartmentRepository: IGenericRepository<Apartment>
     {
-        public Task<Apartment?> UpdateApartment(Apartment apartment);
         public int GetMaxGuest(Guid id);
         public decimal GetPrice(Guid id);
         public Task<bool> isExist(Guid id);

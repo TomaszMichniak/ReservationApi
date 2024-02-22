@@ -1,4 +1,6 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Logging;
+using ReservationApi.Application.Exceptions;
 using ReservationApi.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,11 +12,13 @@ namespace ReservationApi.Application.CQRS.Guest.Command.Delete
 {
     public class DeleteGuestCommandHandler : IRequestHandler<DeleteGuestCommand>
     {
-        public IGuestRepository _guestRepository;
+        private readonly IGuestRepository _guestRepository;
+        private readonly ILogger<DeleteGuestCommandHandler> _logger;
 
-        public DeleteGuestCommandHandler(IGuestRepository guestRepository)
+        public DeleteGuestCommandHandler(IGuestRepository guestRepository, ILogger<DeleteGuestCommandHandler> logger)
         {
             _guestRepository = guestRepository;
+            _logger = logger;
         }
 
         public async Task Handle(DeleteGuestCommand request, CancellationToken cancellationToken)
@@ -22,9 +26,10 @@ namespace ReservationApi.Application.CQRS.Guest.Command.Delete
             var guest = await _guestRepository.GetByIdAsync(request.Id);
             if (guest == null)
             {
-                return;
+                throw new NotFoundExceptions("Guest not found");
             }
             await _guestRepository.DeleteAsync(guest);
+            _logger.LogWarning($"Guest with id {guest.Id} deleted");
         }
     }
 }

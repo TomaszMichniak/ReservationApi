@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ReservationApi.Application.CQRS.Apartment.Command.Edit
 {
-    public class EditApartmentCommand : ApartmentDto, IRequest<ApartmentDto?>
+    public class EditApartmentCommand : ApartmentDto, IRequest<ApartmentDto>
     {
 
     }

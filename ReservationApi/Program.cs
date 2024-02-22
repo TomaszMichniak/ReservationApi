@@ -7,6 +7,7 @@ using ReservationApi.Infrastructure.Authentication;
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
 using NLog.Web;
+using ReservationApi.Application.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -52,9 +53,6 @@ builder.Services.AddSwaggerGen(options =>
     });
 
 });
-//Nlog
-builder.Logging.ClearProviders();
-builder.Host.UseNLog();
 
 builder.Services.AddInfrastructures(builder.Configuration);
 builder.Services.AddApplication();
@@ -79,6 +77,9 @@ builder.Services.AddAuthentication(option =>
     };
 });
 
+//Nlog
+builder.Logging.ClearProviders();
+builder.Host.UseNLog();
 var app = builder.Build();
 //Seeder
 
@@ -87,6 +88,7 @@ var seeder = scope.ServiceProvider.GetRequiredService<ReservationApiSeeder>();
 await seeder.Seed();
 
 // Configure the HTTP request pipeline.
+app.UseMiddleware<ErrorHandlingMiddlawere>();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

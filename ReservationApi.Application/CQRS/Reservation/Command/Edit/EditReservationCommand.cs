@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ReservationApi.Application.CQRS.Reservation.Command.Edit
 {
-    public class EditReservationCommand:ReservationDto,IRequest<ReservationDto?>
+    public class EditReservationCommand:ReservationDto,IRequest<ReservationDto>
     {
 
     }

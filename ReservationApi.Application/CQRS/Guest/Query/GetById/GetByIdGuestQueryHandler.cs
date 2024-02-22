@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using ReservationApi.Application.Exceptions;
 using ReservationApi.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ReservationApi.Application.CQRS.Guest.Query.GetById
 {
-    public class GetByIdGuestQueryHandler : IRequestHandler<GetByIdGuestQuery, GuestDto?>
+    public class GetByIdGuestQueryHandler : IRequestHandler<GetByIdGuestQuery, GuestDto>
     {
         private readonly IMapper _mapper;
         private readonly IGuestRepository _guestRepository;
@@ -20,12 +21,12 @@ namespace ReservationApi.Application.CQRS.Guest.Query.GetById
             _guestRepository = guestRepository;
         }
 
-        public async Task<GuestDto?> Handle(GetByIdGuestQuery request, CancellationToken cancellationToken)
+        public async Task<GuestDto> Handle(GetByIdGuestQuery request, CancellationToken cancellationToken)
         {
             var guest = await _guestRepository.GetByIdAsync(request.Id);
             if (guest == null)
             {
-                return null;
+                throw new NotFoundExceptions("Guest not Found");
             }
             var guestDto=_mapper.Map<GuestDto>(guest);
             return guestDto;

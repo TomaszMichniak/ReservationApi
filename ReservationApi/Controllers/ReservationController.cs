@@ -73,8 +73,6 @@ namespace ReservationApi.Controllers
             if (!result.IsValid)
                 return BadRequest(command);
             var data = await _mediator.Send(command);
-            if (data == null)
-                return BadRequest(command);
             return Ok(data);
         }
         [HttpDelete]

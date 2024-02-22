@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ReservationApi.Application.CQRS.Guest.Query.GetById
 {
-    public class GetByIdGuestQuery :IRequest<GuestDto?>
+    public class GetByIdGuestQuery :IRequest<GuestDto>
     {
         public Guid Id { get; set; }
 

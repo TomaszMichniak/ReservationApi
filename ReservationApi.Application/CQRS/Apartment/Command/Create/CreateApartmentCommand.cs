@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ReservationApi.Application.CQRS.Apartment.Command.Create
 {
-    public class CreateApartmentCommand : IRequest<ApartmentDto?>
+    public class CreateApartmentCommand : IRequest<ApartmentDto>
     {
         public string Name { get; set; } = default!;
         public string Description { get; set; } = default!;

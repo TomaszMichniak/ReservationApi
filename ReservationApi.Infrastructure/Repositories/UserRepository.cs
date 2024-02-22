@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using ReservationApi.Application.Exceptions;
 using ReservationApi.Domain.Entities;
 using ReservationApi.Domain.Interfaces;
 using ReservationApi.Infrastructure.Authentication;
@@ -32,12 +33,12 @@ namespace ReservationApi.Infrastructure.Repositories
                 .FirstOrDefaultAsync(u => u.Email == email);
             if (user == null)
             {
-                throw new Exception();
+                throw new NotFoundExceptions("User with this email and password not exist");
             }
             var result = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, password);
             if (result == PasswordVerificationResult.Failed)
             {
-                throw new Exception();
+                throw new NotFoundExceptions("User with this email and password not exist");
             }
             var claims = new List<Claim>()
             {

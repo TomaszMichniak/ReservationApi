@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using ReservationApi.Domain.Entities;
 using ReservationApi.Domain.Interfaces;
 using System;
@@ -16,13 +17,15 @@ namespace ReservationApi.Application.CQRS.Reservation.Command.Create
         private readonly IReservationRepository _reservationRepository;
         private readonly IApartmentRepository _apartmentRepository;
         private readonly IGuestRepository _guestRepository;
+        private readonly ILogger<CreateReservationCommandHander> _logger;
 
-        public CreateReservationCommandHander(IMapper mapper, IReservationRepository reservationRepository, IApartmentRepository apartmentRepository, IGuestRepository guestRepository)
+        public CreateReservationCommandHander(IMapper mapper, IReservationRepository reservationRepository, IApartmentRepository apartmentRepository, IGuestRepository guestRepository, ILogger<CreateReservationCommandHander> logger)
         {
             _mapper = mapper;
             _reservationRepository = reservationRepository;
             _apartmentRepository = apartmentRepository;
             _guestRepository = guestRepository;
+            _logger = logger;
         }
 
         public async Task<ReservationDto?> Handle(CreateReservationCommand request, CancellationToken cancellationToken)
@@ -41,6 +44,7 @@ namespace ReservationApi.Application.CQRS.Reservation.Command.Create
             }
             var newReservation=await _reservationRepository.CreateAsync(reservation);
             var reservationDto=_mapper.Map<ReservationDto>(newReservation);
+            _logger.LogInformation($"Reservation with id {reservationDto.Id} created");
             return reservationDto;
         }
         //TODO better Create

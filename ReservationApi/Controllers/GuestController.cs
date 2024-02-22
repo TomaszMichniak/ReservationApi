@@ -20,10 +20,14 @@ namespace ReservationApi.Controllers
     public class GuestController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public GuestController(IMediator mediator)
+        private readonly ILogger<GuestController> _logger;
+
+        public GuestController(IMediator mediator, ILogger<GuestController> logger)
         {
             _mediator = mediator;
+            _logger = logger;
         }
+
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] PaginationDto pagination)
         {
@@ -34,6 +38,7 @@ namespace ReservationApi.Controllers
         [Route("{Id}")]
         public async Task<IActionResult> GetById([FromRoute] Guid Id)
         {
+            _logger.LogTrace("asasasa");
             var result = await _mediator.Send(new GetByIdGuestQuery(Id));
             return Ok(result);
         }
@@ -78,8 +83,7 @@ namespace ReservationApi.Controllers
             if (!result.IsValid)
                 return BadRequest(command);
             var data = await _mediator.Send(command);
-            if (data == null)
-                return BadRequest(command);
+        
             return Ok(data);
             
         }
