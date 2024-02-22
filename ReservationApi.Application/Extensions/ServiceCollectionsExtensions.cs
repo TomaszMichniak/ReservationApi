@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using ReservationApi.Application.CQRS.Apartment.Command.Create;
@@ -27,7 +28,6 @@ namespace ReservationApi.Application.Extensions
             );
             services.AddValidatorsFromAssemblyContaining<CreateApartmentCommandValidator>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
-
         }
     }
 }

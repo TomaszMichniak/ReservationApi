@@ -6,9 +6,9 @@ using System.Text;
 using ReservationApi.Infrastructure.Authentication;
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
+using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
 builder.Services.AddControllers().AddJsonOptions(options =>
  options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())); ;
@@ -52,6 +52,10 @@ builder.Services.AddSwaggerGen(options =>
     });
 
 });
+//Nlog
+builder.Logging.ClearProviders();
+builder.Host.UseNLog();
+
 builder.Services.AddInfrastructures(builder.Configuration);
 builder.Services.AddApplication();
 
