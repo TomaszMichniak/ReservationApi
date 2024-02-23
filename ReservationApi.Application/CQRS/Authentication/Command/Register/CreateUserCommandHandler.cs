@@ -29,8 +29,8 @@ namespace ReservationApi.Application.CQRS.AuthenticationCQRS.Command.Register
 
         public async Task Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            var user = _mapper.Map<User>(request.User);
-            user.PasswordHash = _passwordHasher.HashPassword(user, request.User.Password);
+            var user = _mapper.Map<User>(request);
+            user.PasswordHash = _passwordHasher.HashPassword(user, request.Password);
             await _userRepository.CreateAsync(user);
             _logger.LogInformation($"User with id {user.Id} created");
             return;

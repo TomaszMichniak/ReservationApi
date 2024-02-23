@@ -58,5 +58,9 @@ namespace ReservationApi.Infrastructure.Repositories
             var tokenHandler = new JwtSecurityTokenHandler();
             return tokenHandler.WriteToken(token);
         }
+        public bool UniqueEmail(string email)
+        {
+           return _dbContext.Users.Any(u => u.Email == email);
+        }
     }
 }

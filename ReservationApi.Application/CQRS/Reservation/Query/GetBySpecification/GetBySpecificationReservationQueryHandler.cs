@@ -61,7 +61,7 @@ namespace ReservationApi.Application.CQRS.Reservation.Query.GetBySpecification
         {
             if (request.CheckInDate != null)
             {
-                specification.Criteria.Add(x => x.CheckInDate==request.CheckInDate);
+                specification.Criteria.Add(x => x.CheckInDate == request.CheckInDate);
             }
             if (request.CheckOutDate != null)
             {
@@ -74,9 +74,18 @@ namespace ReservationApi.Application.CQRS.Reservation.Query.GetBySpecification
             if (request.TotalPrice != null)
             {
                 specification.Criteria.Add(x => x.TotalPrice == request.TotalPrice);
-            } if (request.TotalGuests != null)
+            }
+            if (request.TotalGuests != null)
             {
                 specification.Criteria.Add(x => x.TotalGuests == request.TotalGuests);
+            }
+            if (request.ApartmentId != null)
+            {
+                specification.Criteria.Add(x => x.ApartmentId == request.ApartmentId);
+            }
+            if (request.GuestId != null)
+            {
+                specification.Criteria.Add(x => x.GuestId == request.GuestId);
             }
             return specification;
         }

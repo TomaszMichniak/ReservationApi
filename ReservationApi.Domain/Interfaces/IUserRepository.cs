@@ -10,5 +10,6 @@ namespace ReservationApi.Domain.Interfaces
     public interface IUserRepository:IGenericRepository<User>
     {
         public Task<string> GenerateJWt(string email, string password);
+        public bool UniqueEmail(string email);
     }
 }

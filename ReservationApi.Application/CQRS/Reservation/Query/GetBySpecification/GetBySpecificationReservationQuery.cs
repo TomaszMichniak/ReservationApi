@@ -17,6 +17,8 @@ namespace ReservationApi.Application.CQRS.Reservation.Query.GetBySpecification
         public DateTime? ReservationDate { get; set; }
         public int? TotalGuests { get; set; }
         public decimal? TotalPrice { get; set; }
+        public Guid? ApartmentId { get; set; }
+        public Guid? GuestId { get; set; }  
         public ReservationOrderBy ReservationOrderBy { get; set; } = 0;
         public OrderBy OrderBy { get; set; } = 0;
     }

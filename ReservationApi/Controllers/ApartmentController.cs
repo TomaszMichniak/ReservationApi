@@ -57,8 +57,7 @@ namespace ReservationApi.Controllers
             if (!result.IsValid)
                 return BadRequest(command);
             var data = await _mediator.Send(command);
-            if (data == null)
-                return BadRequest(command);
+            
             return Ok(data);
         }
         [HttpPut]
@@ -67,7 +66,6 @@ namespace ReservationApi.Controllers
         {
             EditApartmentCommandValidator _validator = new EditApartmentCommandValidator();
             ValidationResult result = await _validator.ValidateAsync(command);
-
             if (!result.IsValid)
                 return BadRequest(command);
             var data = await _mediator.Send(command);

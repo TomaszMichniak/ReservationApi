@@ -38,7 +38,6 @@ namespace ReservationApi.Controllers
         [Route("{Id}")]
         public async Task<IActionResult> GetById([FromRoute] Guid Id)
         {
-            _logger.LogTrace("asasasa");
             var result = await _mediator.Send(new GetByIdGuestQuery(Id));
             return Ok(result);
         }
@@ -60,8 +59,6 @@ namespace ReservationApi.Controllers
             if (!result.IsValid)
                 return BadRequest(command);
             var data = await _mediator.Send(command);
-            if (data == null)
-                return BadRequest(command);
             return Ok(data);
         }
         [HttpDelete]
